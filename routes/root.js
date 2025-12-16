@@ -1,10 +1,16 @@
-const express = require('express');
-const router = express.Router();
-const path = require('path');
+import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
 
-router.get(['/','/index','/index.html'], (req, res) => {
-	const filePath = path.join(__dirname, '..', 'views', 'index.html');
-	res.sendFile(filePath);
+const router = express.Router();
+
+// recreate __dirname in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+router.get(['/', '/index', '/index.html'], (req, res) => {
+  const filePath = path.join(__dirname, '..', 'views', 'index.html');
+  res.sendFile(filePath);
 });
 
-module.exports = router;
+export default router;
